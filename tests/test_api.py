@@ -128,16 +128,16 @@ class TestSignupEndpoint:
         """Test that signup increases the participant count"""
         # Get initial count
         initial_response = client.get("/activities")
-        initial_count = len(initial_response.json()[
-                            "Tennis Club"]["participants"])
+        initial_participants = initial_response.json()["Tennis Club"]["participants"]
+        initial_count = len(initial_participants)
 
         # Sign up a new student
         client.post("/activities/Tennis%20Club/signup?email=new@mergington.edu")
 
         # Verify count increased
         updated_response = client.get("/activities")
-        updated_count = len(updated_response.json()[
-                            "Tennis Club"]["participants"])
+        updated_participants = updated_response.json()["Tennis Club"]["participants"]
+        updated_count = len(updated_participants)
         assert updated_count == initial_count + 1
 
 
